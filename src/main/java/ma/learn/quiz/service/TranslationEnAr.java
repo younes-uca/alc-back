@@ -54,4 +54,11 @@ public class TranslationEnAr {
         return example;
     }
 
+    public String explanation(String texttoexplain) throws IOException {
+        String textwithoutspace = texttoexplain.replace(" ","-");
+        Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english/" +textwithoutspace).get();
+        return doc.select("div.def").first().text();
+    }
+
+
 }

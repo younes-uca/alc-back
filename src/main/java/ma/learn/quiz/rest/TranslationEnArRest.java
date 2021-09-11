@@ -31,4 +31,10 @@ public class TranslationEnArRest {
         return translationEnAr.example(text);
     }
 
+    @GetMapping("/text/explanation/{text}")
+    public String explanation(@PathVariable String text) throws IOException {
+        return translationEnAr.explanation(text);
+    }
+
+
 }
