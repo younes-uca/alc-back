@@ -32,4 +32,26 @@ public class TranslationEnAr {
         }
         return listesynonymes;
     }
+
+    public String example(String word){
+        String example = null;
+        try {
+            Document doc = Jsoup.connect("https://sentence.yourdictionary.com/"+word).get();
+            Elements elements = doc.select("ul.sentences-list");
+            for (Element e:elements) {
+                Elements items = e.select("li.sentences-list-item");
+                for (Element item: items) {
+                    example = item.text();
+                }
+                break;
+            }
+
+        }catch (IOException ioException){
+            System.out.println(ioException.getMessage());
+            example = "WARNING : You should only set one word to get it in example";
+        }
+
+        return example;
+    }
+
 }
