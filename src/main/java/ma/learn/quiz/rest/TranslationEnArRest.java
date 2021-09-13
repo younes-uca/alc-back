@@ -1,5 +1,6 @@
 package ma.learn.quiz.rest;
 
+import ma.learn.quiz.bean.SectionItem;
 import ma.learn.quiz.service.TranslationEnAr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,5 +37,9 @@ public class TranslationEnArRest {
         return translationEnAr.explanation(text);
     }
 
+    @GetMapping("/text/translationFeatures/{text}")
+    public SectionItem translationFeatures(@PathVariable String text) throws IOException {
+        return translationEnAr.translationFeatures(text);
+    }
 
 }

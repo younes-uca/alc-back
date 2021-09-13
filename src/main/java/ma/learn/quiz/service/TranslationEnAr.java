@@ -1,5 +1,6 @@
 package ma.learn.quiz.service;
 
+import ma.learn.quiz.bean.SectionItem;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -58,6 +59,14 @@ public class TranslationEnAr {
         String textwithoutspace = texttoexplain.replace(" ","-");
         Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english/" +textwithoutspace).get();
         return doc.select("div.def").first().text();
+    }
+
+    public SectionItem translationFeatures(String textTaped) throws IOException {
+        SectionItem sectionItem = new SectionItem();
+        sectionItem.setTranslation(TranslationResult(textTaped));
+        sectionItem.setExample(example(textTaped));
+        sectionItem.setExplanation(explanation(textTaped));
+        return sectionItem;
     }
 
 
