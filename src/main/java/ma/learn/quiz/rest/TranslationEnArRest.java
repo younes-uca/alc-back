@@ -36,5 +36,10 @@ public class TranslationEnArRest {
         return translationEnAr.explanation(text);
     }
 
+    @GetMapping("/text/synonymesinenglish/{text}")
+    public List<String> synonymeInEnglish(@PathVariable String text) throws IOException {
+        return translationEnAr.synonymeInEnglish(text);
+    }
+
 
 }
