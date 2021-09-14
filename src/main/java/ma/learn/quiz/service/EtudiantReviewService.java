@@ -25,16 +25,21 @@ class EtudiantReviewService {
     public List<EtudiantReview> findAll() {
         return etudiantReviewDao.findAll();
     }
+
+    public EtudiantReview findByEtudiantIdAndCoursId(long id, long ids) {
+        return etudiantReviewDao.findByEtudiantIdAndCoursId(id, ids);
+    }
+
     public int save(EtudiantReview etudiantReview) {
-        EtudiantReview ETDV = findByReview(etudiantReview.getReview());
-        if (ETDV == null) {
+        EtudiantReview ETDV = etudiantReviewDao.findByEtudiantIdAndCoursId(etudiantReview.getEtudiant().getId(),etudiantReview.getCours().getId());
+        if (etudiantReview.getReview() == 0) {
             return -1;
         }else if (ETDV != null) {
             return -2;
         } else {
+            etudiantReview.setProf(etudiantReview.getEtudiant().getProf());
             etudiantReviewDao.save(etudiantReview);
             return 1;
         }
     }
-
 }
