@@ -69,5 +69,21 @@ public class TranslationEnAr {
         return sectionItem;
     }
 
+    public List<String> synonymeInEnglish(String word)  throws IOException{
+        Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english-thesaurus/"+word).get();
+        Elements elements = doc.select("span.orth");
+        List<String> listesynonymes = new ArrayList<>();
+        int i = 0;
+        for (Element e:elements) {
+            if(!e.text().startsWith(word)){
+                i++;
+                listesynonymes.add(e.text());
+            }
+            if(i>=5)
+            break;
+        }
+        return listesynonymes;
+    }
+
 
 }

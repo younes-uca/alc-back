@@ -20,7 +20,6 @@ public class CalendrierProf {
 	private String endTime;
 	private Date startRecur;
 	private Date endRecur;
-	private int daysOfWeek[];
 	@OneToOne
 	private Prof prof;
 	@ManyToOne
@@ -80,16 +79,6 @@ public class CalendrierProf {
 
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
-	}
-
-
-
-	public int[] getDaysOfWeek() {
-		return daysOfWeek;
-	}
-
-	public void setDaysOfWeek(int[] daysOfWeek) {
-		this.daysOfWeek = daysOfWeek;
 	}
 
 	public Prof getProf() {

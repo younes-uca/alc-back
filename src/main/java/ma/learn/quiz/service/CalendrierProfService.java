@@ -27,7 +27,6 @@ public class CalendrierProfService {
 
 	public CalendrierProf update(CalendrierProf calendrierProf) {
 		CalendrierProf calendrier = calendrierProfDao.findCalendrierProfById(calendrierProf.getId());
-		calendrier.setDaysOfWeek(calendrierProf.getDaysOfWeek());
 		calendrier.setStartRecur(calendrierProf.getStartRecur());
 		calendrier.setEndRecur(calendrierProf.getEndRecur());
 		return calendrierProfDao.save(calendrier);
