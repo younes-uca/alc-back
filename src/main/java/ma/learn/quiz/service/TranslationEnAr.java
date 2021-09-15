@@ -32,4 +32,49 @@ public class TranslationEnAr {
         }
         return listesynonymes;
     }
+
+    public String example(String word){
+        String example = null;
+        try {
+            Document doc = Jsoup.connect("https://sentence.yourdictionary.com/"+word).get();
+            Elements elements = doc.select("ul.sentences-list");
+            for (Element e:elements) {
+                Elements items = e.select("li.sentences-list-item");
+                for (Element item: items) {
+                    example = item.text();
+                }
+                break;
+            }
+
+        }catch (IOException ioException){
+            System.out.println(ioException.getMessage());
+            example = "WARNING : You should only set one word to get it in example";
+        }
+
+        return example;
+    }
+
+    public String explanation(String texttoexplain) throws IOException {
+        String textwithoutspace = texttoexplain.replace(" ","-");
+        Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english/" +textwithoutspace).get();
+        return doc.select("div.def").first().text();
+    }
+
+    public List<String> synonymeInEnglish(String word)  throws IOException{
+        Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english-thesaurus/"+word).get();
+        Elements elements = doc.select("span.orth");
+        List<String> listesynonymes = new ArrayList<>();
+        int i = 0;
+        for (Element e:elements) {
+            if(!e.text().startsWith(word)){
+                i++;
+                listesynonymes.add(e.text());
+            }
+            if(i>=5)
+            break;
+        }
+        return listesynonymes;
+    }
+
+
 }
