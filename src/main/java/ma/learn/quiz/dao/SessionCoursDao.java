@@ -14,5 +14,6 @@ public interface SessionCoursDao extends JpaRepository<SessionCours, Long> {
 
     int deleteSessionCoursById(Long id);
     List<SessionCours> findByProfId(Long id);
+    List<SessionCours> findByProfIdAndEtudiantId(Long id,Long ids);
 
 }

@@ -60,7 +60,9 @@ public class SessionCoursService {
         return 1;
         }
     }
-
+    public List<SessionCours> findByProfIdAndEtudiantId(Long id, Long ids) {
+        return sessionCoursDao.findByProfIdAndEtudiantId(id, ids);
+    }
 
     public SessionCours update(SessionCours sessionCours) {
     	SessionCours session = findSessionCoursById(sessionCours.getId());

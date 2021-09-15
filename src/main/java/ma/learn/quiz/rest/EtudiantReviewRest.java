@@ -5,8 +5,7 @@ package ma.learn.quiz.rest;
 import ma.learn.quiz.bean.EtudiantReview;
 import ma.learn.quiz.service.EtudiantReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,20 +14,26 @@ import java.util.List;
 public class EtudiantReviewRest {
     @Autowired
     public EtudiantReviewService etudiantReviewService;
-
-    public EtudiantReview findByReview(int review) {
+    @GetMapping("/review/{review}")
+    public EtudiantReview findByReview(@PathVariable int review) {
         return etudiantReviewService.findByReview(review);
     }
-
-    public int deleteByReview(int review) {
+    @DeleteMapping("/review/{review}")
+    public int deleteByReview( @PathVariable int review) {
         return etudiantReviewService.deleteByReview(review);
     }
-
+    @GetMapping("/")
     public List<EtudiantReview> findAll() {
         return etudiantReviewService.findAll();
     }
 
-    public int save(EtudiantReview etudiantReview) {
+    @PostMapping("/")
+    public int save(@RequestBody EtudiantReview etudiantReview) {
         return etudiantReviewService.save(etudiantReview);
+    }
+
+    @GetMapping("/etudiant/id/{id}/cours/id/{ids}")
+    public EtudiantReview findByEtudiantIdAndCoursId(@PathVariable long id,@PathVariable long ids) {
+        return etudiantReviewService.findByEtudiantIdAndCoursId(id, ids);
     }
 }
