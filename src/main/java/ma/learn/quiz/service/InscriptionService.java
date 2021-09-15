@@ -1,19 +1,19 @@
 package ma.learn.quiz.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ma.learn.quiz.bean.*;
+import ma.learn.quiz.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ma.learn.quiz.bean.EtatInscription;
-import ma.learn.quiz.bean.Etudiant;
-import ma.learn.quiz.bean.Inscription;
-import ma.learn.quiz.bean.Parcours;
-import ma.learn.quiz.bean.Prof;
 import ma.learn.quiz.dao.InscriptionDao;
 import ma.learn.quiz.service.vo.EtudiantVo;
 
@@ -37,9 +37,13 @@ public class InscriptionService {
 	public EtudiantService etudiantService;
 	@Autowired 
 	public EntityManager entityManager;
-	
-	
-	public List<Inscription> findByCriteria (Inscription inscrit ){
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired private RoleDao roleDao;
+
+	public List<Inscription> findByCriteria (Inscription inscrit){
 		String query = "SELECT e FROM Inscription e WHERE 1=1";
 		if (inscrit.getNom() != null  )
 		{
@@ -61,7 +65,7 @@ public class InscriptionService {
 	 public int save(Inscription  inscription ) {
 		 Inscription inscriptionLogin = findInscriptionByLogin(inscription.getLogin());
 		 List<Prof> profs=profService.findAll();
-		 Prof prof = profs.get(1);
+		 Prof prof = profs.get(0);
 		 if (inscriptionLogin != null) {
 			 return -1;
 		 }else {
@@ -69,6 +73,7 @@ public class InscriptionService {
 			EtatInscription etatInscription = etatInscriptionService.findEtatInscriptionById((long) 1);
 			inscription.setProf(prof);
 			inscription.setEtatInscription(etatInscription);
+			inscription.setPassword(passwordEncoder.encode(inscription.getPassword()));
 			inscriptionDao.save(inscription);
 				return 1;	
 				}	
@@ -100,6 +105,10 @@ public class InscriptionService {
 				etudiant.setVille(loadedInscription.getVille());
 				etudiant.setGmail(loadedInscription.getGmail());
 				etudiant.setNumero(loadedInscription.getNumero());
+				Set<Role> roles = new HashSet<>();
+				Role userRole = roleDao.findByAuthority("ROLE_ETUDIANT");
+				roles.add(userRole);
+				etudiant.setAuthorities(roles);
 				System.out.println(etudiant.getNom());
 				etudiantService.create(etudiant);
 				return 1;

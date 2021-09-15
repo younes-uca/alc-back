@@ -1,16 +1,25 @@
 package ma.learn.quiz.service;
 
 import ma.learn.quiz.bean.Admin;
+import ma.learn.quiz.bean.Role;
 import ma.learn.quiz.dao.AdminDao;
+import ma.learn.quiz.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 @Service
 public class AdminService {
+	@Autowired private PasswordEncoder passwordEncoder;
+
+	@Autowired private RoleDao roleDao;
+
     public Admin findByNumero(String ref) {
         return adminDao.findByNumero(ref);
     }
@@ -39,6 +48,11 @@ public class AdminService {
 			return -2;
 		}
 		else {
+			Set<Role> roles = new HashSet<>();
+			Role userRole = roleDao.findByAuthority("ROLE_ADMIN");
+			roles.add(userRole);
+			admin.setAuthorities(roles);
+			admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 			adminDao.save(admin);
 			return 1;
 		}

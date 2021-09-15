@@ -2,12 +2,17 @@ package ma.learn.quiz.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ma.learn.quiz.bean.Role;
+import ma.learn.quiz.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ma.learn.quiz.bean.Paiement;
@@ -18,8 +23,13 @@ import ma.learn.quiz.vo.SalaryVo;
 
 @Service
 public class ProfService {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	
+	@Autowired
+	private RoleDao roleDao;
+
 	public List<Prof> findByCriteria (Prof prof ){
 		String query = "SELECT e FROM Prof e WHERE 1=1";
 		if (prof.getNom() != null  )
@@ -77,6 +87,11 @@ public class ProfService {
 		}
 		else {
 			System.out.println("id::: " + prof.getId());
+			prof.setPassword(passwordEncoder.encode(prof.getPassword()));
+			Set<Role> roles = new HashSet<>();
+			Role userRole = roleDao.findByAuthority("ROLE_PROF");
+			roles.add(userRole);
+			prof.setAuthorities(roles);
 			profDao.save(prof);
 			return 1;
 		}

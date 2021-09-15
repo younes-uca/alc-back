@@ -2,31 +2,20 @@ package ma.learn.quiz.bean;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Etudiant {
+public class Etudiant extends User{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 	private String ref;
-	private String nom;
-	private String prenom;
 	private int age;
 	private String login;
 	private String numero;
 	private String ville;
 	private String address;
 	private String password;
-	private String image;
 	private String gmail;
 	@ManyToOne
 	private Prof prof;
@@ -69,14 +58,11 @@ public class Etudiant {
 
     public Etudiant(String ref, String nom, String prenom, int age, String login, String ville, String address, String password, String image, String gmail, Prof prof, EtatEtudiantSchedule etatEtudiantSchedule, Parcours parcours, List<QuizEtudiant> quizEtudiant) {
         this.ref = ref;
-        this.nom = nom;
-        this.prenom = prenom;
         this.age = age;
         this.login = login;
         this.ville = ville;
         this.address = address;
         this.password = password;
-        this.image = image;
         this.gmail = gmail;
         this.prof = prof;
         this.etatEtudiantSchedule = etatEtudiantSchedule;
@@ -84,13 +70,6 @@ public class Etudiant {
         this.quizEtudiant = quizEtudiant;
     }
 
-    public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	public String getAddress() {
 		return address;
@@ -123,22 +102,6 @@ public class Etudiant {
 
 	public void setRef(String ref) {
 		this.ref = ref;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
 	}
 
 	public int getAge() {
