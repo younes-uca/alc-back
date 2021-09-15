@@ -31,8 +31,8 @@ public class ReponseEtudiantService {
 	@Autowired
     private EntityManager entityManager;
 	
-	public List<ReponseEtudiant> findByCriteria(String refQuizEtudiant, Long numeroQuestion) {
-		String query = "SELECT r FROM ReponseEtudiant r WHERE r.quizEtudiant.ref= '"+refQuizEtudiant+"' and r.reponse.question.numero='"+numeroQuestion+"'";
+	public List<ReponseEtudiant> findByCriteria(Long idQuizEtudiant, Long idQuestion) {
+		String query = "SELECT r FROM ReponseEtudiant r WHERE r.quizEtudiant.id= '"+idQuizEtudiant+"' and r.question.id='"+idQuestion+"'";
 		return entityManager.createQuery(query).getResultList();
 	}
 

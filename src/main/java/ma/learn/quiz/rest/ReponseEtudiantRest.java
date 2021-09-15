@@ -25,9 +25,9 @@ public class ReponseEtudiantRest {
 
 	
 
-	@GetMapping("/creteria/quizEtudiant/{refQuizEtudiant}/question/{numeroQuestion}")
-	public List<ReponseEtudiant> findByCriteria(@PathVariable String refQuizEtudiant, @PathVariable Long numeroQuestion) {
-		return reponseEtudiantService.findByCriteria(refQuizEtudiant, numeroQuestion);
+	@GetMapping("/creteria/quizEtudiant/id/{idQuizEtudiant}/question/id/{idQuestion}")
+	public List<ReponseEtudiant> findByCriteria(@PathVariable Long idQuizEtudiant, @PathVariable Long idQuestion) {
+		return reponseEtudiantService.findByCriteria(idQuizEtudiant, idQuestion);
 	}
 
 	@GetMapping("/quizEtudiant/ref/{ref}")
