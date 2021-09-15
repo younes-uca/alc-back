@@ -66,6 +66,7 @@ public class TranslationEnAr {
         sectionItem.setTranslation(TranslationResult(textTaped));
         sectionItem.setExample(example(textTaped));
         sectionItem.setExplanation(explanation(textTaped));
+        sectionItem.setSynonyms(synonymeInEnglish(textTaped));
         return sectionItem;
     }
 
@@ -79,7 +80,7 @@ public class TranslationEnAr {
                 i++;
                 listesynonymes.add(e.text());
             }
-            if(i>=5)
+            if(i>=2)
             break;
         }
         return listesynonymes;
