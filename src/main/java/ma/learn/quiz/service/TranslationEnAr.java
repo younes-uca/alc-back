@@ -1,5 +1,6 @@
 package ma.learn.quiz.service;
 
+import ma.learn.quiz.bean.SectionItem;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -60,6 +61,15 @@ public class TranslationEnAr {
         return doc.select("div.def").first().text();
     }
 
+    public SectionItem translationFeatures(String textTaped) throws IOException {
+        SectionItem sectionItem = new SectionItem();
+        sectionItem.setTranslation(TranslationResult(textTaped));
+        sectionItem.setExample(example(textTaped));
+        sectionItem.setExplanation(explanation(textTaped));
+        sectionItem.setSynonyms(synonymeInEnglish(textTaped));
+        return sectionItem;
+    }
+
     public List<String> synonymeInEnglish(String word)  throws IOException{
         Document doc = Jsoup.connect("https://www.collinsdictionary.com/dictionary/english-thesaurus/"+word).get();
         Elements elements = doc.select("span.orth");
@@ -70,7 +80,7 @@ public class TranslationEnAr {
                 i++;
                 listesynonymes.add(e.text());
             }
-            if(i>=5)
+            if(i>=2)
             break;
         }
         return listesynonymes;

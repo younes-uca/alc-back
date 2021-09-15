@@ -8,6 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -23,20 +25,10 @@ public class SectionItem implements Serializable {
     private String translation;
     private String explanation;
     private String example;
-
-
+    @ElementCollection
+    private List<String> synonyms;
     @ManyToOne()
     private Section section;
 
-    @Override
-    public String toString() {
-        return "SectionItem{" +
-                "id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", response='" + response + '\'' +
-                ", translation='" + translation + '\'' +
-                ", explanation='" + explanation + '\'' +
-                ", example='" + example + '\'' +
-                '}';
-    }
+
 }
