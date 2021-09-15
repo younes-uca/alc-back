@@ -1,12 +1,6 @@
 package ma.learn.quiz.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class ReponseEtudiant {
@@ -21,6 +15,8 @@ public class ReponseEtudiant {
 	@ManyToOne
 	private QuizEtudiant quizEtudiant;
 	private Double note;
+	@ManyToOne
+	private Question question;
 
 	public String getAnswer() {
 		return answer;
@@ -60,7 +56,12 @@ public class ReponseEtudiant {
 	public void setNote(Double note) {
 		this.note = note;
 	}
-	
-	
-	
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 }
