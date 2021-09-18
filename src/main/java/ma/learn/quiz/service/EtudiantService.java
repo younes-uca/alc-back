@@ -64,8 +64,8 @@ public class EtudiantService {
 		message.setFrom("elearningMarrakech@gmail.com");
 		message.setTo(etudiant.getLogin());
 		message.setSubject("accepted on the platform e-learning");
-		message.setText("Your online registration on the site: http: // localhost: 4200 / # / is validated. \n" + "You can log into your account now.\n" +
-						"your account settings are:"  +"\n"+
+		message.setText("Your online registration on the site: http://localhost:4200/#/ is validated. \n" + "You can log into your account now.\n" +
+						"Your account settings are:"  +"\n"+
 				"username : "+ etudiant.getLogin() +"\n"+
 				"password : "+ etudiant.getPassword());
 		mailSender.send(message);
