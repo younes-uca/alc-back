@@ -1,6 +1,7 @@
 package ma.learn.quiz.bean;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class EtudiantReview {
@@ -15,6 +16,15 @@ public class EtudiantReview {
     private Cours cours;
     private int review;
     private String comment;
+    private Date dateReview;
+
+    public Date getDateReview() {
+        return dateReview;
+    }
+
+    public void setDateReview(Date dateReview) {
+        this.dateReview = dateReview;
+    }
 
     public String getComment() {
         return comment;
