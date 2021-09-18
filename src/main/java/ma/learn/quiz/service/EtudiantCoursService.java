@@ -23,7 +23,7 @@ public class EtudiantCoursService {
 		return etudiantCoursDao.findByCoursIdAndEtudiantId(id, ids);
 	}
 
-	
+
 
 	public List<EtudiantCours> findAll() {
 		return etudiantCoursDao.findAll();
@@ -46,5 +46,5 @@ public class EtudiantCoursService {
 			return 1;
 		}
 	}
-	
+
 }
