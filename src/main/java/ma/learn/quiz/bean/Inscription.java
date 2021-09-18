@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 			private String numero;
 			private int age;
 			private String login;
+			private String username;
 			private String ville;
 			private String address;
 			private String password;

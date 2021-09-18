@@ -3,29 +3,17 @@ package ma.learn.quiz.bean;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Prof {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Prof extends User{
     private String numero;
-    private String nom;
-    private String prenom;
     private String login;
-	private String password;
 	private String email;
 	private String ref;
 	private String addresse;
-	private String image;
 	@ManyToOne
 	private CategorieProf categorieProf;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -60,14 +48,10 @@ public class Prof {
 			List<RecommendTeacher> recommendTeacher, List<Etudiant> etudiantList) {
 		super();
 		this.numero = numero;
-		this.nom = nom;
-		this.prenom = prenom;
 		this.login = login;
-		this.password = password;
 		this.email = email;
 		this.ref = ref;
 		this.addresse = addresse;
-		this.image = image;
 		this.categorieProf = categorieProf;
 		this.classRooms = classRooms;
 		this.recommendTeacher = recommendTeacher;
@@ -80,21 +64,6 @@ public class Prof {
 
 	public void setEtudiantList(List<Etudiant> etudiantList) {
 		this.etudiantList = etudiantList;
-	}
-
-
-
-
-
-	public String getImage() {
-		return image;
-	}
-
-
-
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 
@@ -134,13 +103,6 @@ public class Prof {
 		this.login = login;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getEmail() {
 		return email;
@@ -172,22 +134,6 @@ public class Prof {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
     }
 
 	
