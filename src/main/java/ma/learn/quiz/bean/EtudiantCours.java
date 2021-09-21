@@ -17,9 +17,18 @@ public class EtudiantCours {
 	private Etudiant etudiant;
  @ManyToOne
     private Cours cours ;
- 
+ @ManyToOne
+    private Prof prof ;
 
-public Cours getCours() {
+	public Prof getProf() {
+		return prof;
+	}
+
+	public void setProf(Prof prof) {
+		this.prof = prof;
+	}
+
+	public Cours getCours() {
 	return cours;
 }
 public void setCours(Cours cours) {

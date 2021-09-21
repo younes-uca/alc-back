@@ -2,6 +2,7 @@ package ma.learn.quiz.service;
 
 import java.util.List;
 
+import ma.learn.quiz.bean.Prof;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ public class EtudiantCoursService {
 	private CoursService coursService;
 	@Autowired
 	private EtudiantService etudiantService;
+	@Autowired
+	private ProfService profService;
 
 	public EtudiantCours findByCoursIdAndEtudiantId(Long id, Long ids) {
 		return etudiantCoursDao.findByCoursIdAndEtudiantId(id, ids);
@@ -35,6 +38,8 @@ public class EtudiantCoursService {
 		Etudiant etd = etudiantService.findEtudiantById(etudiantCours.getEtudiant().getId());
 		Cours cours = coursService.findCoursById(etudiantCours.getCours().getId());
 		EtudiantCours etdcours = findByCoursIdAndEtudiantId(cours.getId(), etd.getId());
+		Prof prof = profService.findProfById(etd.getProf().getId());
+
 		if (etd == null) {
 			return -1;
 		}else if (etdcours != null) {
@@ -42,6 +47,7 @@ public class EtudiantCoursService {
 		} else if (cours == null) {
 			return -3;
 		}else {
+			etudiantCours.setProf(prof);
 			etudiantCoursDao.save(etudiantCours);
 			return 1;
 		}
