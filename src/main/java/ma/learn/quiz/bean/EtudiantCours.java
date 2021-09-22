@@ -22,6 +22,24 @@ public class EtudiantCours {
     private Prof prof ;
 	private String dateDebut;
 	private String dateFin;
+	private BigDecimal duree;
+	private String payer;
+
+	public BigDecimal getDuree() {
+		return duree;
+	}
+
+	public void setDuree(BigDecimal duree) {
+		this.duree = duree;
+	}
+
+	public String getPayer() {
+		return payer;
+	}
+
+	public void setPayer(String payer) {
+		this.payer = payer;
+	}
 
 	public String getDateDebut() {
 		return dateDebut;
