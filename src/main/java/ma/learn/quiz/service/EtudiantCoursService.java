@@ -2,17 +2,19 @@ package ma.learn.quiz.service;
 
 import java.util.List;
 
-import ma.learn.quiz.bean.Prof;
+import ma.learn.quiz.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ma.learn.quiz.bean.Cours;
-import ma.learn.quiz.bean.Etudiant;
-import ma.learn.quiz.bean.EtudiantCours;
 import ma.learn.quiz.dao.EtudiantCoursDao;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 @Service
 public class EtudiantCoursService {
+	@Autowired
+	public EntityManager entityManager;
 	@Autowired
 	private EtudiantCoursDao etudiantCoursDao;
 	@Autowired
@@ -32,7 +34,20 @@ public class EtudiantCoursService {
 		return etudiantCoursDao.findAll();
 	}
 
+	public EtudiantCours findEtudiantCoursById(Long id) {
+		return etudiantCoursDao.findEtudiantCoursById(id);
+	}
 
+	public EtudiantCours update(EtudiantCours sessionCours) {
+		EtudiantCours session = findEtudiantCoursById(sessionCours.getId());
+		Etudiant etd = etudiantService.findEtudiantById(sessionCours.getEtudiant().getId());
+		Prof prof = profService.findProfById(sessionCours.getProf().getId());
+		session.setEtudiant(etd);
+		session.setProf(prof);
+		session.setDateDebut(sessionCours.getDateDebut());
+		session.setDateFin(sessionCours.getDateFin());
+		return etudiantCoursDao.save(session);
+	}
 
 	public int save(EtudiantCours etudiantCours) {
 		Etudiant etd = etudiantService.findEtudiantById(etudiantCours.getEtudiant().getId());
@@ -52,5 +67,37 @@ public class EtudiantCoursService {
 			return 1;
 		}
 	}
+	public List<EtudiantCours> findByCriteria (EtudiantCours sessionCours ){
+		String query = "SELECT e FROM EtudiantCours e WHERE 1=1";
+		if (sessionCours.getProf().getNom() != null  )
+		{
+			query += " AND  e.prof.nom LIKE '%" + sessionCours.getProf().getNom()+"%'";
+		}
+		if (sessionCours.getEtudiant().getNom() != null)
+		{
+			query+= "  AND  e.etudiant.nom LIKE '%" + sessionCours.getEtudiant().getNom()+"'";
+		}
 
+
+		return  entityManager.createQuery(query).getResultList();
+	}
+	public List<EtudiantCours> findByProfId(Long id) {
+		return etudiantCoursDao.findByProfId(id);
+	}
+@Transactional
+	public int deleteEtudiantCoursById(Long id) {
+		return etudiantCoursDao.deleteEtudiantCoursById(id);
+	}
+	@Transactional
+	public int deleteSessionCoursById(List<EtudiantCours> sessionCourss) {
+		int res = 0;
+		for (int i = 0; i < sessionCourss.size(); i++) {
+			res += deleteEtudiantCoursById(sessionCourss.get(i).getId());
+		}
+		return res;
+	}
+
+	public List<EtudiantCours> findByProfIdAndEtudiantId(Long id, Long ids) {
+		return etudiantCoursDao.findByProfIdAndEtudiantId(id, ids);
+	}
 }
