@@ -1,7 +1,7 @@
 package ma.learn.quiz.bean;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,8 +20,8 @@ public class EtudiantCours {
     private Cours cours ;
  @ManyToOne
     private Prof prof ;
-	private String dateDebut;
-	private String dateFin;
+	private Date dateDebut;
+	private Date dateFin;
 	private BigDecimal duree;
 	private String payer;
 
@@ -41,24 +41,21 @@ public class EtudiantCours {
 		this.payer = payer;
 	}
 
-	public String getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(String dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public String getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(String dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-
-
-
 
 	public Prof getProf() {
 		return prof;
